@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "TextureManager.h"
 
 Game::Game() {}
 Game::~Game() {}
@@ -29,11 +30,8 @@ void Game::init(const char* title, int w_posx, int w_posy, int w_width, int w_he
 		isRunning = false;
 	}
 
-	SDL_Surface* tempSurface = IMG_Load("assets/player.png");
-	printf("Error : %s", IMG_GetError());
-	playerTexture = SDL_CreateTextureFromSurface(renderer, tempSurface);
-	printf("Error : %s", IMG_GetError());
-	SDL_FreeSurface(tempSurface);
+
+	playerTexture = TextureManager::LoadTexture("assets/player.png", renderer);
 };
 
 void Game::update() {
