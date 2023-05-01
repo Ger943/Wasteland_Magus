@@ -24,9 +24,6 @@
     <ClCompile Include="TextureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -35,15 +32,9 @@
     <ClInclude Include="TextureManager.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\player.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="assets\orc.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -1,15 +1,11 @@
 #include "Game.h"
 #include "TextureManager.h"
-#include "GameObject.h"
-#include <random>
 
 Game::Game() {}
 Game::~Game() {}
 SDL_Texture* playerTexture;
 SDL_Rect srcR, dstR;
 int charaSpeed = 8;
-GameObject* player;
-GameObject* orc;
 
 void Game::init(const char* title, int w_posx, int w_posy, int w_width, int w_height, bool fullscreen) {
 
@@ -34,19 +30,15 @@ void Game::init(const char* title, int w_posx, int w_posy, int w_width, int w_he
 		isRunning = false;
 	}
 
-	player = new GameObject("assets/player.png", renderer,0,0);
-	orc = new GameObject("assets/orc.png", renderer,16,240);
+
+	playerTexture = TextureManager::LoadTexture("assets/player.png", renderer);
 };
 
 void Game::update() {
-	player->Update();
-	std::random_device rd; // obtain a random number from hardware
-	std::mt19937 gen(rd()); // seed the generator
-	std::uniform_int_distribution<> distr(-1, 1);
-	orc->XMove(distr(gen));
-	orc->YMove(distr(gen));
-	orc->Update();
-	
+
+	dstR.h = 64;
+	dstR.w = 64;
+
 };
 void Game::handleEvents() {
 	SDL_Event event;
@@ -59,16 +51,17 @@ void Game::handleEvents() {
 	case SDL_KEYDOWN:
 		switch (event.key.keysym.sym) {
 		case SDLK_LEFT:
-			player->XMove(-1);
+			dstR.x -= charaSpeed;
+			std::cout << "Left button :" << std::endl;
 			break;
 		case SDLK_RIGHT:
-			player->XMove(1);
+			dstR.x += charaSpeed;
 			break;
 		case SDLK_UP:
-			player->YMove(-1);
+			dstR.y -= charaSpeed;
 			break;
 		case SDLK_DOWN:
-			player->YMove(1);
+			dstR.y += charaSpeed;
 			break;
 		default:
 			break;
@@ -85,7 +78,6 @@ void Game::clean() {
 void Game::render() {
 	SDL_RenderClear(renderer);
 	// Textures to render here , farthest first
-	player->Render();
-	orc->Render();
+	SDL_RenderCopy(renderer, playerTexture, NULL, &dstR);
 	SDL_RenderPresent(renderer);
 };
