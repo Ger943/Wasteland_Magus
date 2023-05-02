@@ -1,16 +1,22 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include "GameObject.h"
+#include "Map.h"
 #include <random>
 
-Game::Game() {}
-Game::~Game() {}
 SDL_Texture* playerTexture;
 SDL_Rect srcR, dstR;
-int charaSpeed = 8;
 GameObject* player;
 GameObject* orc;
+Map* tileMap;
+SDL_Renderer* Game::renderer = nullptr;
 
+Game::Game() {
+
+}
+Game::~Game() {
+
+}
 void Game::init(const char* title, int w_posx, int w_posy, int w_width, int w_height, bool fullscreen) {
 
 	int flags = 0;
@@ -33,11 +39,10 @@ void Game::init(const char* title, int w_posx, int w_posy, int w_width, int w_he
 	else {
 		isRunning = false;
 	}
-
-	player = new GameObject("assets/player.png", renderer,0,0);
-	orc = new GameObject("assets/orc.png", renderer,16,240);
+	tileMap = new Map();
+	player = new GameObject("assets/player.png", 0,0);
+	orc = new GameObject("assets/orc.png",16,240);
 };
-
 void Game::update() {
 	player->Update();
 	std::random_device rd; // obtain a random number from hardware
@@ -85,6 +90,7 @@ void Game::clean() {
 void Game::render() {
 	SDL_RenderClear(renderer);
 	// Textures to render here , farthest first
+	tileMap->DrawMap();
 	player->Render();
 	orc->Render();
 	SDL_RenderPresent(renderer);

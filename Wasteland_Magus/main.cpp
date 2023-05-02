@@ -7,7 +7,7 @@ Game* game = nullptr;
 int main(int argc, char* argv[]) {
 
 	game = new Game();
-	game->init("MeowEngine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, 0);
+	game->init("MeowEngine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, 0);
 	const int FPS = 100, frameDelay = 1000 / FPS;
 	Uint32 frameStart;
 	int frameTime;

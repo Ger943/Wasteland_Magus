@@ -1,9 +1,8 @@
 #include "GameObject.h"
 #include "TextureManager.h"
 
-GameObject::GameObject(const char* textureSheet, SDL_Renderer* renderer, int initX, int initY) {
-	render = renderer;
-	objectTexture = TextureManager::LoadTexture(textureSheet, renderer);
+GameObject::GameObject(const char* textureSheet, int initX, int initY) {
+	objectTexture = TextureManager::LoadTexture(textureSheet);
 
 	xPos = initX;
 	yPos = initY;
@@ -33,5 +32,5 @@ void GameObject::YMove(int dir) { yPos += dir * charaSpeed; }
 
 void GameObject::Render() {
 
-	SDL_RenderCopy(render, objectTexture, &srcRect, &dstRect);
+	SDL_RenderCopy(Game::renderer, objectTexture, &srcRect, &dstRect);
 }
